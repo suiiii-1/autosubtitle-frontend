@@ -45,8 +45,10 @@ export default function UploadPage() {
     formData.append('language', language);
 
     try {
-      // Direct call to your FastAPI backend
-      const response = await fetch('http://localhost:8000/process-video', {
+      // Use environment variable for the API URL, fallback to localhost for dev
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      
+      const response = await fetch(`${API_BASE_URL}/process-video`, {
         method: 'POST',
         body: formData,
       });
